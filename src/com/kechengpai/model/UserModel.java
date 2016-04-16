@@ -63,8 +63,7 @@ public class UserModel {
 	public int register(User user) {
 		String sql = null;
 
-		// 检验账号是否唯一
-		if (Login(user.getAccount(), user.getPassword(), user.getType()) == 1) {
+		if (checkAccount(user.getAccount(), user.getType()) != -1) {
 			return 0;
 		}
 
@@ -94,6 +93,38 @@ public class UserModel {
 			con.close();// 关闭资源,防止溢出
 			return i;
 		} catch (SQLException e) {
+		}
+		return -1;
+	}
+
+	/**
+	 * 检查账号是否唯一
+	 * 
+	 * @param account
+	 * @param type
+	 * @return
+	 */
+	private int checkAccount(String account, int type) {
+		String sql = null;
+		if (type == 1) {
+
+			sql = "select * from student where account= ? ";
+
+		} else if (type == 0) {
+			sql = "select * from teacher where account= ? ";
+		}
+
+		PreparedStatement pstmt;
+		try {
+			pstmt = (PreparedStatement) con.prepareStatement(sql);
+			pstmt.setString(1, account);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				return rs.getInt(1);
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 		return -1;
 	}
