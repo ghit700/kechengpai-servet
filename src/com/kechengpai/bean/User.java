@@ -7,6 +7,17 @@ public class User {
 	protected String name;
 	protected int type;
 	
+	
+	
+	public User(String account, String password, String school, String name,
+			int type) {
+		super();
+		this.account = account;
+		this.password = password;
+		this.school = school;
+		this.name = name;
+		this.type = type;
+	}
 	public String getAccount() {
 		return account;
 	}

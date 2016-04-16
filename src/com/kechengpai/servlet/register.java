@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kechengpai.bean.Student;
+import com.kechengpai.bean.User;
 import com.kechengpai.model.UserModel;
 
 /**
@@ -33,6 +35,14 @@ public class register extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8"); // html
@@ -46,10 +56,16 @@ public class register extends HttpServlet {
 		UserModel model = new UserModel();
 
 		int type = Integer.parseInt(typeStr);
+		User user = new User(account, password, school, name, type);
+
 		if (type == 1) {
 			String number = request.getParameter("number");
+			Student student = new Student(account, password, school, name, type);
+			student.setNumber(Integer.parseInt(number));
+			user = student;
 		}
-		int i = model.register(user, type);
+
+		int i = model.register(user);
 
 		// 获取返回给客户端的writer
 		PrintWriter out = null;
@@ -63,16 +79,5 @@ public class register extends HttpServlet {
 		} finally {
 			out.close();
 		}
-
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	}
-
 }

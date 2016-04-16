@@ -33,6 +33,32 @@ public class login extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//
+		// request.setCharacterEncoding("UTF-8");
+		// response.setCharacterEncoding("UTF-8");
+		// response.setContentType("text/html;charset=UTF-8"); // html
+		//
+		// String account = request.getParameter("account");
+		// String password = request.getParameter("password");
+		// String type = request.getParameter("type");
+		//
+		// UserModel model = new UserModel();
+		//
+		// int i = model.Login(account, password, 0);
+		//
+		// // 获取返回给客户端的writer
+		// PrintWriter out = null;
+		// try {
+		// out = response.getWriter();
+		//
+		// out.print(i);
+		//
+		// } catch (Exception e) {
+		//
+		// } finally {
+		// out.close();
+		//
+		// }
 	}
 
 	/**
@@ -41,16 +67,18 @@ public class login extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8"); // html
 
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
-		String type = request.getParameter("type");
+		String typeStr = request.getParameter("type");
 
 		UserModel model = new UserModel();
-		int i = model.Login(account, password, Integer.parseInt(type));
+		int type = Integer.parseInt(typeStr);
+		int i = model.Login(account, password, type);
 
 		// 获取返回给客户端的writer
 		PrintWriter out = null;
@@ -63,6 +91,7 @@ public class login extends HttpServlet {
 
 		} finally {
 			out.close();
+
 		}
 
 	}

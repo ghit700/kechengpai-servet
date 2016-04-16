@@ -58,19 +58,25 @@ public class UserModel {
 	 * 用户注册
 	 * 
 	 * @param user
-	 * @param type
 	 * @return
 	 */
 	public int register(User user) {
 		String sql = null;
 
+		// 检验账号是否唯一
+		if (Login(user.getAccount(), user.getPassword(), user.getType()) == 1) {
+			return 0;
+		}
+
 		if (user.getType() == 0) {
 			sql = "insert into teacher (account,password,school,name,type) values (?,?,?,?,?) ";
 
 		} else if (user.getType() == 1) {
-			sql = "insert into teacher (account,password,school,name,type,number) values (?,?,?,?,?,?) ";
+			sql = "insert into student (account,password,school,name,type,number) values (?,?,?,?,?,?) ";
 		}
 		PreparedStatement pstmt;
+
+		System.out.println("user.getType()=" + user.getType());
 		try {
 			pstmt = (PreparedStatement) con.prepareStatement(sql); // 实例化预处理
 			pstmt.setString(1, user.getAccount());
@@ -79,7 +85,8 @@ public class UserModel {
 			pstmt.setString(4, user.getName());
 			pstmt.setInt(5, user.getType());
 			if (user.getType() == 1) {
-				pstmt.setInt(6, ((Student) user).getNumber());
+				Student student = (Student) user;
+				pstmt.setInt(6, student.getNumber());
 			}
 
 			int i = pstmt.executeUpdate(); // 执行语句
