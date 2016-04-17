@@ -8,8 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.kechengpai.bean.Student;
 import com.kechengpai.bean.User;
 import com.kechengpai.model.UserModel;
 
@@ -52,18 +50,14 @@ public class register extends HttpServlet {
 		String school = request.getParameter("school");
 		String name = request.getParameter("name");
 		String typeStr = request.getParameter("type");
-
+		String number = request.getParameter("number");
+		
 		UserModel model = new UserModel();
 
 		int type = Integer.parseInt(typeStr);
-		User user = new User(account, password, school, name, type);
-
-		if (type == 1) {
-			String number = request.getParameter("number");
-			Student student = new Student(account, password, school, name, type);
-			student.setNumber(Integer.parseInt(number));
-			user = student;
-		}
+		
+		User user = new User(account, password, school, name, type,
+				Integer.parseInt(number));
 
 		int i = model.register(user);
 

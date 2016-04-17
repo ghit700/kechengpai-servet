@@ -74,11 +74,10 @@ public class login extends HttpServlet {
 
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
-		String typeStr = request.getParameter("type");
+		
 
 		UserModel model = new UserModel();
-		int type = Integer.parseInt(typeStr);
-		int i = model.Login(account, password, type);
+		String i = model.Login(account, password);
 
 		// 获取返回给客户端的writer
 		PrintWriter out = null;

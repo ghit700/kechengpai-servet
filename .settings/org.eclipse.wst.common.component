@@ -2,6 +2,7 @@
     <wb-module deploy-name="kechengpai">
         <wb-resource deploy-path="/" source-path="/WebContent"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/libs"/>
         <property name="context-root" value="kechengpai"/>
         <property name="java-output-path" value="/kechengpai/build/classes"/>
     </wb-module>
