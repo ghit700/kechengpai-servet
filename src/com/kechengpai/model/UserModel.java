@@ -61,9 +61,6 @@ public class UserModel {
 	 */
 	public int register(User user) {
 		String sql = null;
-//		if (checkAccount(user.getAccount()).equals(-1)) {
-//			return -1;
-//		}
 
 		sql = "insert into user (account,password,school,name,type,number) values (?,?,?,?,?,?) ";
 		PreparedStatement pstmt;
@@ -75,7 +72,7 @@ public class UserModel {
 			pstmt.setString(4, user.getName());
 			pstmt.setInt(5, user.getType());
 			pstmt.setInt(6, user.getNumber());
-			System.out.println("111");
+
 			int i = pstmt.executeUpdate(); // 执行语句
 
 			pstmt.close();
@@ -96,23 +93,23 @@ public class UserModel {
 	 * @param type
 	 * @return
 	 */
-	private String checkAccount(String account) {
-		String sql = null;
-
-		sql = "select * from user where account= ? ";
-
-		PreparedStatement pstmt;
-		try {
-			pstmt = (PreparedStatement) con.prepareStatement(sql);
-			pstmt.setString(1, account);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				return rs.getString(1);
-			}
-
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return "-1";
-	}
+	// private String checkAccount(String account) {
+	// String sql = null;
+	//
+	// sql = "select * from user where account= ? ";
+	//
+	// PreparedStatement pstmt;
+	// try {
+	// pstmt = (PreparedStatement) con.prepareStatement(sql);
+	// pstmt.setString(1, account);
+	// ResultSet rs = pstmt.executeQuery();
+	// while (rs.next()) {
+	// return rs.getString(1);
+	// }
+	//
+	// } catch (Exception e) {
+	// // TODO: handle exception
+	// }
+	// return "-1";
+	// }
 }
