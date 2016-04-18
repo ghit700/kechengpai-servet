@@ -76,7 +76,6 @@ public class UserModel {
 			int i = pstmt.executeUpdate(); // 执行语句
 
 			pstmt.close();
-			con.close();// 关闭资源,防止溢出
 			if (i >= 0) {
 				return user.getType();
 			}
@@ -86,6 +85,31 @@ public class UserModel {
 		return -1;
 	}
 
+	public String updateUserInfo(String account, String columnName,
+			String columnValue) {
+		String sql = "update user set " + columnName + "=?"
+				+ " where account=?";
+		PreparedStatement pstmt;
+		try {
+			pstmt = (PreparedStatement) con.prepareStatement(sql);
+			if ( columnName.equals("number")) {
+
+				pstmt.setInt(1, Integer.parseInt(columnValue));
+			} else {
+				pstmt.setString(1, columnValue);
+			}
+
+			pstmt.setString(2, account);
+			int i = pstmt.executeUpdate();
+			pstmt.close();
+			return columnName;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return "-1";
+
+	}
 	/**
 	 * 检查账号是否唯一
 	 * 
