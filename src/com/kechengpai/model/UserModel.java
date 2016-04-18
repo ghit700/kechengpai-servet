@@ -100,7 +100,9 @@ public class UserModel {
 			}
 
 			pstmt.setString(2, account);
+			System.out.println(pstmt.toString());
 			int i = pstmt.executeUpdate();
+			System.out.println(i);
 			pstmt.close();
 			return columnName;
 		} catch (Exception e) {
