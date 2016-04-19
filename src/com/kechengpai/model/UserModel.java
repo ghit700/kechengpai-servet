@@ -73,6 +73,7 @@ public class UserModel {
 			pstmt.setInt(5, user.getType());
 			pstmt.setInt(6, user.getNumber());
 
+			System.out.println("register====" + pstmt.toString());
 			int i = pstmt.executeUpdate(); // 执行语句
 
 			pstmt.close();
@@ -99,7 +100,7 @@ public class UserModel {
 			}
 
 			pstmt.setString(2, account);
-			System.out.println(pstmt.toString());
+			System.out.println("updateUserInfo=====" + pstmt.toString());
 			int i = pstmt.executeUpdate();
 			System.out.println(i);
 			pstmt.close();

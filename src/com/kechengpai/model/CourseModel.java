@@ -21,19 +21,19 @@ public class CourseModel {
 	}
 
 	public static String queryCourseList(String account, int type) {
-		int i = -1;
 		String sql = null;
-		if (type == 1) {
+		if (type == 0) {
 			sql = "select c_id,name,teacher,code,numbers from course where account=?";
 		} else {
-			sql = "select c_id,name,teacher,code,numbers from course as a,student_course as b"
-					+ " where account=? and a.c_id=b.c_id";
+			sql = "select a.c_id,name,teacher,code,numbers from course as a,student_course as b"
+					+ " where b.account=? and a.c_id=b.c_id";
 		}
 
 		PreparedStatement pstmt;
 		try {
 			pstmt = (PreparedStatement) con.prepareStatement(sql);
 			pstmt.setString(1, account);
+			System.out.println("queryCourseList=====" + pstmt.toString());
 			ResultSet rs = pstmt.executeQuery();
 			List<Course> courses = new ArrayList<Course>();
 			while (rs.next()) {
@@ -41,6 +41,8 @@ public class CourseModel {
 						rs.getString(3), rs.getString(4), rs.getInt(5));
 				courses.add(course);
 			}
+			
+
 			return JSON.toJSONString(courses);
 
 		} catch (Exception e) {
