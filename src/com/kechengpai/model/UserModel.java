@@ -92,8 +92,7 @@ public class UserModel {
 		PreparedStatement pstmt;
 		try {
 			pstmt = (PreparedStatement) con.prepareStatement(sql);
-			if ( columnName.equals("number")) {
-
+			if (columnName.equals("number")) {
 				pstmt.setInt(1, Integer.parseInt(columnValue));
 			} else {
 				pstmt.setString(1, columnValue);
@@ -112,30 +111,5 @@ public class UserModel {
 		return "-1";
 
 	}
-	/**
-	 * 检查账号是否唯一
-	 * 
-	 * @param account
-	 * @param type
-	 * @return
-	 */
-	// private String checkAccount(String account) {
-	// String sql = null;
-	//
-	// sql = "select * from user where account= ? ";
-	//
-	// PreparedStatement pstmt;
-	// try {
-	// pstmt = (PreparedStatement) con.prepareStatement(sql);
-	// pstmt.setString(1, account);
-	// ResultSet rs = pstmt.executeQuery();
-	// while (rs.next()) {
-	// return rs.getString(1);
-	// }
-	//
-	// } catch (Exception e) {
-	// // TODO: handle exception
-	// }
-	// return "-1";
-	// }
+
 }
